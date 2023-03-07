@@ -54,7 +54,17 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_hsem.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_gpio.h \
  ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_rtc.h \
- ../Core/Inc/app_entry.h ../Core/Inc/app_common.h
+ ../Core/Inc/app_entry.h ../Core/Inc/app_common.h \
+ ../STM32_WPAN/App/app_zigbee.h \
+ ../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl.h \
+ ../Middlewares/ST/STM32_WPAN/stm32_wpan_common.h \
+ ../Drivers/CMSIS/Include/cmsis_compiler.h \
+ ../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_zigbee_hci.h \
+ ../Middlewares/ST/STM32_WPAN/zigbee/core/inc/zigbee_core.h \
+ ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h \
+ ../Middlewares/ST/STM32_WPAN/zigbee/core/inc/stm32wbxx_core_interface_def.h \
+ ../Middlewares/ST/STM32_WPAN/zigbee/core/inc/zigbee_types.h \
+ ../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl.h
 ../Core/Inc/main.h:
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal.h:
 ../Core/Inc/stm32wbxx_hal_conf.h:
@@ -114,3 +124,13 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_ll_rtc.h:
 ../Core/Inc/app_entry.h:
 ../Core/Inc/app_common.h:
+../STM32_WPAN/App/app_zigbee.h:
+../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl.h:
+../Middlewares/ST/STM32_WPAN/stm32_wpan_common.h:
+../Drivers/CMSIS/Include/cmsis_compiler.h:
+../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_zigbee_hci.h:
+../Middlewares/ST/STM32_WPAN/zigbee/core/inc/zigbee_core.h:
+../Drivers/STM32WBxx_HAL_Driver/Inc/stm32wbxx_hal_def.h:
+../Middlewares/ST/STM32_WPAN/zigbee/core/inc/stm32wbxx_core_interface_def.h:
+../Middlewares/ST/STM32_WPAN/zigbee/core/inc/zigbee_types.h:
+../Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl.h:

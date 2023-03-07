@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "app_zigbee.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -110,19 +110,35 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
-  NVIC->ISER[0] |= (1 << EXTI0_IRQn);
+
+  //MOTOR STUFF.
   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
-  GPIOA->MODER &= ~0xf3;
-  GPIOA->MODER |= 0x51;
+  GPIOA->MODER &= ~0xff;
+  GPIOA->MODER |= 0x55;
+  //Run motor in reverse.
+  GPIOA->BSRR |= 0x2;
   for(int i = 0; i < 200; i++)  {
 	  HAL_Delay(1);
 	  GPIOA->BSRR |= 0xd0000;
 	  HAL_Delay(1);
 	  GPIOA->BSRR |= 0x1;
   }
+  //Run motor forwards.
+  GPIOA->BSRR |= 0x20000;
+  for(int i = 0; i < 200; i++) {
+	  HAL_Delay(1);
+	  GPIOA->BSRR |= 0xd0000;
+	  HAL_Delay(1);
+	  GPIOA->BSRR |= 0x1;
+  }
+
+
+  //Stuff for button pushes that don't work.
+  NVIC->ISER[0] |= (1 << EXTI0_IRQn);
   SYSCFG->EXTICR[0] &= ~0x7;
   EXTI->RTSR1 |= 0x1;
   EXTI->C2IMR1 |= 0x10000;
+  //int zig_start = 0;
   /* USER CODE END 2 */
 
   /* Init code for STM32_WPAN */
@@ -136,6 +152,12 @@ int main(void)
     MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
+    /*
+    if(zig_start == 0) {
+    	APP_ZIGBEE_Init();
+    	zig_start = 1;
+    }
+    */
   }
   /* USER CODE END 3 */
 }
