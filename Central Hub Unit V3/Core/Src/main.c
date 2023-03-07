@@ -76,7 +76,7 @@ static void MX_USB_PCD_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	__enable_irq();
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -132,13 +132,15 @@ int main(void)
 	  GPIOA->BSRR |= 0x1;
   }
 
+  //Stuff for TIM16.
+  RCC->APB2ENR |= RCC_APB2ENR_TIM16EN;
+  TIM16->PSC = 48000-1;
+  TIM16->ARR = 1000-1;
+  TIM16->DIER = TIM_DIER_UIE;
+  TIM16->CR1 |= TIM_CR1_CEN;
+  SYSCFG->IMR1 &= ~SYSCFG_IMR1_TIM16IM;
+  NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
 
-  //Stuff for button pushes that don't work.
-  NVIC->ISER[0] |= (1 << EXTI0_IRQn);
-  SYSCFG->EXTICR[0] &= ~0x7;
-  EXTI->RTSR1 |= 0x1;
-  EXTI->C2IMR1 |= 0x10000;
-  //int zig_start = 0;
   /* USER CODE END 2 */
 
   /* Init code for STM32_WPAN */
@@ -149,15 +151,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    MX_APPE_Process();
+    //MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
-    /*
-    if(zig_start == 0) {
-    	APP_ZIGBEE_Init();
-    	zig_start = 1;
-    }
-    */
+
+
   }
   /* USER CODE END 3 */
 }

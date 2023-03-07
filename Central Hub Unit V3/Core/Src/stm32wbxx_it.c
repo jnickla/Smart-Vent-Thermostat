@@ -213,5 +213,16 @@ void HSEM_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-
+void TIM1_UP_TIM16_IRQHandler(void)
+{
+	TIM16->SR &= ~TIM_SR_UIF;
+	GPIOA->BSRR |= 0x20000;
+	for(int i = 0; i < 200; i++) {
+		HAL_Delay(1);
+		GPIOA->BSRR |= 0xd0000;
+		HAL_Delay(1);
+		GPIOA->BSRR |= 0x1;
+	}
+	//TIM16->SR &= ~TIM_SR_UIF;
+}
 /* USER CODE END 1 */
