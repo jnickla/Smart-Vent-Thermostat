@@ -31,7 +31,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define DELAY_MS(MS) for(unsigned int i = 0; i < MS; i += SysTick->CTRL >> SysTick_CTRL_COUNTFLAG_Pos) { /* */ }
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -216,13 +216,16 @@ void HSEM_IRQHandler(void)
 void TIM1_UP_TIM16_IRQHandler(void)
 {
 	TIM16->SR &= ~TIM_SR_UIF;
+	GPIOA->BSRR |= 0x20;
 	GPIOA->BSRR |= 0x20000;
 	for(int i = 0; i < 200; i++) {
-		HAL_Delay(1);
+		//HAL_Delay(1);
+		DELAY_MS(2);
 		GPIOA->BSRR |= 0xd0000;
-		HAL_Delay(1);
+		//HAL_Delay(1);
+		DELAY_MS(2);
 		GPIOA->BSRR |= 0x1;
 	}
-	//TIM16->SR &= ~TIM_SR_UIF;
+	GPIOA->BSRR |= 0x200000;
 }
 /* USER CODE END 1 */

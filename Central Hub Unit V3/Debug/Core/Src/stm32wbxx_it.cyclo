@@ -8,4 +8,4 @@ stm32wbxx_it.c:157:6:DebugMon_Handler	1
 stm32wbxx_it.c:170:6:PendSV_Handler	1
 stm32wbxx_it.c:183:6:SysTick_Handler	1
 stm32wbxx_it.c:204:6:HSEM_IRQHandler	1
-stm32wbxx_it.c:216:6:TIM1_UP_TIM16_IRQHandler	2
+stm32wbxx_it.c:216:6:TIM1_UP_TIM16_IRQHandler	4

@@ -113,9 +113,10 @@ int main(void)
 
   //MOTOR STUFF.
   RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
-  GPIOA->MODER &= ~0xff;
-  GPIOA->MODER |= 0x55;
+  GPIOA->MODER &= ~0xcff;
+  GPIOA->MODER |= 0x455;
   //Run motor in reverse.
+  GPIOA->BSRR |= 0x20;
   GPIOA->BSRR |= 0x2;
   for(int i = 0; i < 200; i++)  {
 	  HAL_Delay(1);
@@ -131,15 +132,22 @@ int main(void)
 	  HAL_Delay(1);
 	  GPIOA->BSRR |= 0x1;
   }
+  GPIOA->BSRR |= 200000;
 
   //Stuff for TIM16.
   RCC->APB2ENR |= RCC_APB2ENR_TIM16EN;
   TIM16->PSC = 48000-1;
-  TIM16->ARR = 1000-1;
+  TIM16->ARR = 10000-1;
   TIM16->DIER = TIM_DIER_UIE;
+  TIM16->EGR |= TIM_EGR_UG;
   TIM16->CR1 |= TIM_CR1_CEN;
   SYSCFG->IMR1 &= ~SYSCFG_IMR1_TIM16IM;
   NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
+
+  //Enables SysTick for delay function.
+  SysTick->LOAD = (uint32_t)(72000UL - 1UL); /* set reload register */
+  SysTick->VAL = 0UL; /* load counter value */
+  SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk; /* start SysTick timer */
 
   /* USER CODE END 2 */
 
@@ -154,7 +162,6 @@ int main(void)
     //MX_APPE_Process();
 
     /* USER CODE BEGIN 3 */
-
 
   }
   /* USER CODE END 3 */
